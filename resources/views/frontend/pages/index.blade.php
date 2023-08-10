@@ -24,29 +24,29 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
                         <div class="icon mr-4 align-self-start">
-                            <span class="icon-truck"></span>
+                            <span class="{{ $about->text_1_icon }}"></span>
                         </div>
                         <div class="text">
-                            <h2 class="text-uppercase">ücretsiz kargo</h2>
-                            <p>250 ₺ üzeri  alış verişlerinizde tarafımızla anlaşmalı kargo şirketlerinden ücretsiz olarak kargolarınızı teslim alabilirsiniz </p>
+                            <h2 class="text-uppercase">{{ $about->text_1_title }}</h2>
+                            <p>{!! $about->text_1_content !!} </p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="icon mr-4 align-self-start">
-                            <span class="icon-refresh2"></span>
+                            <span class="{{$about->text_2_icon}}"></span>
                         </div>
                         <div class="text">
-                            <h2 class="text-uppercase">Geri iade</h2>
-                            <p>Satış sözleşmesindeki şartlara uyarak mağazamız tarafından ürünlerinizi geri iade alabiliriz</p>
+                            <h2 class="text-uppercase">{{ $about->text_2_title }}</h2>
+                            <p>{!! $about->text_2_content !!}</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="icon mr-4 align-self-start">
-                            <span class="icon-help"></span>
+                            <span class="{{ $about->text_3_icon }}"></span>
                         </div>
                         <div class="text">
-                            <h2 class="text-uppercase">Destek</h2>
-                            <p>Sorunlarınızı en hızlı ve etkili şekilde çözebilmek için bizle iletişime geçtiğinizde sorunlarınızı düzeltebiliriz </p>
+                            <h2 class="text-uppercase">{{ $about->text_3_title }}</h2>
+                            <p>{!! $about->text_3_content !!} </p>
                         </div>
                     </div>
                 </div>

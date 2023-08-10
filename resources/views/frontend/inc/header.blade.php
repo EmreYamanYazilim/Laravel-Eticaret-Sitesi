@@ -45,13 +45,23 @@
                 <li class="has-children">
                     <a href="#">Kategori</a>
                     <ul class="dropdown">
-                        @if(!empty($categories && $categories->count() > 0 ))
-                            <!-- bazen dil  özelliği eklediğimizde içinde  ilk değeri($categories) es geçiyor o yüzden  && yani veyadan sonra categories'i count ile sıfırdan büyükse diye saydırarak çağırıyorum -->
+
+                        @if(!empty($categories))
                             @foreach($categories as $category)
-                                <li><a href=""> {{ $category->name }}</a></li>
+                                @if($category->category_up == null)
+                                    <li class="has-children">
+                                        <a href="#">{{ $category->name }}</a>
+                                        <ul class="dropdown">
+                                            @foreach($categories as $subCategory)
+                                                @if($subCategory->category_up == $category->id)
+                                                    <li><a href="#">{{ $subCategory->name }}</a></li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endif
                             @endforeach
                         @endif
-
 {{--                            <li><a href="#">Menu One</a></li>--}}
 {{--                            <li><a href="#">Menu Two</a></li>--}}
 {{--                            <li><a href="#">Menu Three</a></li>--}}

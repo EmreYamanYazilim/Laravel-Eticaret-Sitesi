@@ -13,7 +13,6 @@ class Category extends Model
     protected $fillable = ['image','thumbnail','name','slug','content','category_up','status'];
 
 
-
     public function sluggable(): array
     {
         return [
