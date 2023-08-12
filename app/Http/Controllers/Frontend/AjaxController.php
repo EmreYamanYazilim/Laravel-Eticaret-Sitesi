@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ContentFromRequest;
+use App\Models\Contact;
+use Illuminate\Http\Request;
+
+
+class AjaxController extends Controller
+{
+    public function contactsave(ContentFromRequest $request)
+    {
+//        1. ekleme yöntemi
+//        $data = $request->all();
+//        $data['ip'] = request()->ip();
+//
+//
+//        $Sonkaydedilen = Contact::create($data);
+//        return $Sonkaydedilen;
+
+//        2. ekleme yöntemi
+
+        $newdata = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'ip' => request()->ip(),
+        ];
+
+        Contact::create($newdata);
+        return back()->with(['message'=> 'mesjınız başarı ile gönderildi']);
+//        2. yöntem
+
+//        return back()->withsuccess('Mesajınız başarı ile gönderilmiştir !!');
+
+
+
+
+
+    }
+}

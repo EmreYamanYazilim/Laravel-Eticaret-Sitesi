@@ -22,9 +22,9 @@
                 <div class="block-5 mb-5">
                     <h3 class="footer-heading mb-4">İletişim</h3> <!-- şimdilik burdan elle yazıyorum sonra panelden verileri çekeceğim  -->
                     <ul class="list-unstyled">
-                        <li class="address">Adres bilgilerimiz burada olacak </li>
-                        <li class="phone"><a href="tel://23923929210">+90 551 555 55 55</a></li>
-                        <li class="email">emailaddress@domain.com</li>
+                        <li class="address">{{ $settings['adres'] }} </li>
+                        <li class="phone"><a href="tel://23923929210">{{ $settings['telefon'] }}</a></li>
+                        <li class="email">{{ $settings['email'] }}</li>
                     </ul>
                 </div>
             </div>
