@@ -31,9 +31,9 @@ class AjaxController extends Controller
         ];
 
         Contact::create($newdata);
-        return back()->with(['message'=> 'mesjınız başarı ile gönderildi']);
-//        2. yöntem
+        return back()->with(['message'=> 'mesajınız başarı ile gönderildi !!']);
 
+//        2. yöntem
 //        return back()->withsuccess('Mesajınız başarı ile gönderilmiştir !!');
 
 

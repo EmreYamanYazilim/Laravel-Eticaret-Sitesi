@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+
 
 class Product extends Model
 {
+    use Sluggable;
     protected $fillable = [
         'name',
+        'slug',
         'image',
         'category_id',
         'short_text',
@@ -19,4 +23,18 @@ class Product extends Model
         'status',
         'content',
     ];
+
+    public function categoryHasOne()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 }

@@ -17,6 +17,7 @@
                 </div>
                 <div class="col-md-7">
 
+{{--                    validation hataları göstermerk için               --}}
                     @if(count($errors))
                         @foreach($errors->all() as $error)
                             <div class="alert alert-danger">
@@ -25,19 +26,20 @@
                         @endforeach
                     @endif
 
-{{--                2. yöntem--}}
-{{--                <div class="col-md-7">--}}
-{{--                    @if(session()->has('message'))--}}
-{{--                        <div class="alert alert-success">--}}
-{{--                            {{ session()->get('message') }}--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
+{{--                1. yöntem   form sonunda gösterilecek return         --}}
+                <div class="col-md-12">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    {{--                2. yöntem    --}}
+{{--                   @if(session()->has('success'))--}}
+{{--                       <div class="alert alert-success">--}}
+{{--                           {{ session()->get('success') }}--}}
+{{--                       </div>--}}
+{{--                   @endif--}}
 
-                   @if(session()->has('success'))
-                       <div class="alert alert-success">
-                           {{ session()->get('success') }}
-                       </div>
-                   @endif
                     <form action="{{ route('contact.store') }}" method="post">
                         @csrf
 

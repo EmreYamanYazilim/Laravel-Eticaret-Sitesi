@@ -13,6 +13,11 @@ class Category extends Model
     protected $fillable = ['image','thumbnail','name','slug','content','category_up','status'];
 
 
+    public function items()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
+
     public function sluggable(): array
     {
         return [

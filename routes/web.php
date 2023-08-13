@@ -28,7 +28,7 @@ Route::group(['middleware' => 'sitesetting'], function () {
 
 
 
-    Route::get('/urundetay', [PageController::class, 'productdetail'])->name('productdetail'); // ürün detayım
+    Route::get('/urun/{slug}', [PageController::class, 'productdetail'])->name('productdetail'); // ürün detayım
 
     Route::get('/hakkimizda', [PageController::class, 'about'])->name('about');//hakkimizda
 

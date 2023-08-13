@@ -15,7 +15,8 @@ class ProductSeeder extends Seeder
     {
 
         Product::create([
-            'name'          => 'Ürün 1',
+            'name'          => 'urun 1',
+            'slug'          => null,
             'image'         => 'images/shoe_1.jpg',
             'category_id'   => 1,
             'short_text'    => 'Ksa bilgi 1',
@@ -28,10 +29,11 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name'          => 'Ürün 2',
+            'name'          => 'urun 2',
+            'slug'          => null,
             'image'         => 'images/cloth_3.jpg',
             'category_id'   => 2,
-            'short_text'    => ' Ksa bilgi 2',
+            'short_text'    => 'Ksa bilgi 2',
             'price'         => 222,
             'size'          => 'large',
             'color'         => 'beyaz',

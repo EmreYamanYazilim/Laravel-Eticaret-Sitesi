@@ -14,8 +14,9 @@ class PageHomeController extends Controller
         $slider = Slider::where('status','1')->first();
         $title = 'Anasayfa';
         $categories = Category::where('status', '1')->get();
+        $about = About::where('id',1)->first();
 
-         $about = About::where('id',1)->first();
+
         return view('frontend.pages.index',compact('slider','title','categories','about'));
 
     }

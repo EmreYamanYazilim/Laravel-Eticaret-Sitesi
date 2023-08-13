@@ -7,12 +7,12 @@
 
 @section('content')
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong
-                        class="text-black">Tank Top T-Shirt</strong></div>
-            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black">{{ $products->name  ?? '' }}</strong></div>
         </div>
+    </div>
     </div>
 
     <div class="site-section">
@@ -22,14 +22,10 @@
                     <img src="{{asset('/')}}images/cloth_1.jpg" alt="Image" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <h2 class="text-black">Tank Top T-Shirt</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt
-                        facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint
-                        asperiores fuga voluptas, distinctio, aperiam, ratione dolore.</p>
-                    <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis.
-                        Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis
-                        perspiciatis illum hic magni iste, velit aperiam quis.</p>
-                    <p><strong class="text-primary h4">$50.00</strong></p>
+                    <h2 class="text-black">{{ $products->name ?? '' }}</h2>
+                    <p>{!! $products->content !!}</p>
+                    <p class="mb-4">{!! $products->content !!}</p>
+                    <p><strong class="text-primary h4">{{ number_format($products->price ,2)  }}</strong></p>
                     <div class="mb-1 d-flex">
                         <label for="option-sm" class="d-flex mr-3 mb-3">
                             <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio"
@@ -69,7 +65,7 @@
                         </div>
 
                     </div>
-                    <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+                    <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Sepete Ekle</a></p>
 
                 </div>
             </div>
@@ -89,7 +85,8 @@
                         <div class="item">
                             <div class="block-4 text-center">
                                 <figure class="block-4-image">
-                                    <img src="{{asset('/')}}images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                                    <img src="{{asset('/')}}images/cloth_1.jpg" alt="Image placeholder"
+                                         class="img-fluid">
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="#">Tank Top</a></h3>
@@ -101,7 +98,8 @@
                         <div class="item">
                             <div class="block-4 text-center">
                                 <figure class="block-4-image">
-                                    <img src="{{asset('/')}}images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
+                                    <img src="{{asset('/')}}images/shoe_1.jpg" alt="Image placeholder"
+                                         class="img-fluid">
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="#">Corater</a></h3>
@@ -113,7 +111,8 @@
                         <div class="item">
                             <div class="block-4 text-center">
                                 <figure class="block-4-image">
-                                    <img src="{{asset('/')}}images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
+                                    <img src="{{asset('/')}}images/cloth_2.jpg" alt="Image placeholder"
+                                         class="img-fluid">
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="#">Polo Shirt</a></h3>
@@ -125,7 +124,8 @@
                         <div class="item">
                             <div class="block-4 text-center">
                                 <figure class="block-4-image">
-                                    <img src="{{asset('/')}}images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">
+                                    <img src="{{asset('/')}}images/cloth_3.jpg" alt="Image placeholder"
+                                         class="img-fluid">
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="#">T-Shirt Mockup</a></h3>
@@ -137,7 +137,8 @@
                         <div class="item">
                             <div class="block-4 text-center">
                                 <figure class="block-4-image">
-                                    <img src="{{asset('/')}}images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
+                                    <img src="{{asset('/')}}images/shoe_1.jpg" alt="Image placeholder"
+                                         class="img-fluid">
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="#">Corater</a></h3>
@@ -151,8 +152,6 @@
             </div>
         </div>
     </div>
-
-
 
 @endsection
 
