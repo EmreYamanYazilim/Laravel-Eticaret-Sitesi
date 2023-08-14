@@ -22,6 +22,7 @@
 <body>
 
 <div class="site-wrap">
+
     @include('frontend.inc.header')
 
     @yield('content')
@@ -38,7 +39,7 @@
 <script src="{{asset('/')}}js/aos.js"></script>
 @yield('customjs')
 
-<script src="{{asset('/')}}js/main.js"></script>
+<script src="{{asset('/js/main.js')}}"></script>
 
 </body>
 </html>

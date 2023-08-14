@@ -20,32 +20,19 @@
 
                     <div class="row">
                         <div class="col-md-12 mb-5">
-                            <div class="float-md-left mb-4"><h2 class="text-black h5">Tüm Ürünler</h2></div>
+                            <div class="float-md-left mb-4"><h2 class="text-black h5">Ürünler</h2></div>
                             <div class="d-flex">
                                 <div class="dropdown mr-1 ml-md-auto">
-                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        En son
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-
-                                        @if(!empty($categories) && $categories->count()>0)
-                                            @foreach($categories as $category)
-                                                <a class="dropdown-item" href="#">{{ $category->name }}</a>
-                                            @endforeach
-
-                                        @endif
-
-                                    </div>
                                 </div>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Referens</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                                        <a class="dropdown-item" href="#">Relevance</a>
-                                        <a class="dropdown-item" href="#">Name, A to Z</a>
-                                        <a class="dropdown-item" href="#">Name, Z to A</a>
+{{--                                        Ajax kullanılacak bölüm--}}
+                                        <a class="dropdown-item" href="#" data_sira="a_z_order"> A'dan Z'yeSırala</a>
+                                        <a class="dropdown-item" href="#" data_sira="z_a_order"> Z'den A'ya Sırala</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Price, low to high</a>
-                                        <a class="dropdown-item" href="#">Price, high to low</a>
+                                        <a class="dropdown-item" href="#" data_sira="price_min_order">Düşükten yüksek fiyata göre sırala</a>
+                                        <a class="dropdown-item" href="#" data_sira="price_max_order">Yüskekten düşük fiyata göre sırala</a>
                                     </div>
                                 </div>
                             </div>
@@ -75,19 +62,20 @@
 
 {{--                    paginate bölümü            --}}
                     <div class="row" data-aos="fade-up">
-
                         <div class="col-md-12 text-center">
+                            {{--                               {{ $products->whitQueryString()->links('vendor.pagination.bootstrap-4') }}--}}
+                            {{ $products->links('vendor.pagination.bootstrap-4') }}
+
                             <div class="site-block-27">
-{{--                                {{ $products->whitQueryString()->links('vendor.pagination.bootstrap-4') }}--}}
-                                <ul>
-                                    <li><a href="#">&lt;</a></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">&gt;</a></li>
-                                </ul>
+{{--                                <ul>--}}
+{{--                                    <li><a href="#">&lt;</a></li>--}}
+{{--                                    <li class="active"><span>1</span></li>--}}
+{{--                                    <li><a href="#">2</a></li>--}}
+{{--                                    <li><a href="#">3</a></li>--}}
+{{--                                    <li><a href="#">4</a></li>--}}
+{{--                                    <li><a href="#">5</a></li>--}}
+{{--                                    <li><a href="#">&gt;</a></li>--}}
+{{--                                </ul>--}}
                             </div>
                         </div>
                     </div>
@@ -97,8 +85,8 @@
                 <div class="col-md-3 order-1 mb-5 mb-md-0">
                     <div class="border p-4 rounded mb-4">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Kategoriler</h3>
-                        @if(!empty($categories) && $categories->count()>0)
-                            @foreach($categories as $category)
+                        @if(!empty($categories))
+                            @foreach($categories->where('category_up',null) as $category)
                                 <ul class="list-unstyled mb-0">
                                 <li class="mb-1"><a href="#" class="d-flex"><span>{{ $category->name }}</span> <span class="text-black ml-auto">({{ $category->items_count }})</span></a></li>
                                 </ul>
@@ -115,38 +103,27 @@
 
                         <div class="mb-4">
                             <h3 class="mb-3 h6 text-uppercase text-black d-block">Boyut</h3>
-                            <label for="s_sm" class="d-flex">
-                                <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>
-                            </label>
-                            <label for="s_md" class="d-flex">
-                                <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>
-                            </label>
-                            <label for="s_lg" class="d-flex">
-                                <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
-                            </label>
+                            @if(!empty($sizelist))
+                                @foreach($sizelist as $size)
+                                    <label for="s_sm" class="d-flex">
+                                        <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">{{ $size }}</span>
+                                    </label>
+                                @endforeach
+                            @endif
+
+
                         </div>
 
                         <div class="mb-4">
                             <h3 class="mb-3 h6 text-uppercase text-black d-block">renk</h3>
 
-
+                            @if(!empty($colors))
+                                @foreach($colors as $color)
                                     <a href="#" class="d-flex color-item align-items-center" >
-                                        <span class="bg-danger color d-inline-block rounded-circle mr-2"></span> <span class="text-black"> red</span>
+                                        <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span class="text-black">{{ $color }}</span>
                                     </a>
-                                    <a href="#" class="d-flex color-item align-items-center" >
-                                        <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Green (2,298)</span>
-                                    </a>
-                                    <a href="#" class="d-flex color-item align-items-center" >
-                                        <span class="bg-info color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Blue (1,075)</span>
-                                    </a>
-                                    <a href="#" class="d-flex color-item align-items-center" >
-                                        <span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Purple (1,075)</span>
-                                    </a>
-
-
-
-
-
+                                @endforeach
+                            @endif
 
                         </div>
 
@@ -163,39 +140,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                                <a class="block-2-item" href="#">
-                                    <figure class="image">
-                                        <img src="{{asset('/')}}images/women.jpg" alt="" class="img-fluid">
-                                    </figure>
-                                    <div class="text">
-                                        <span class="text-uppercase">Collections</span>
-                                        <h3>Women</h3>
+                            @if(!empty($categories))
+                             @foreach($categories->where('category_up',null) as $category) {{--    foreach'te category_up null olanları getir diyeceğim categories'i middlewareden çektim--}}
+                                    <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
+                                        <a class="block-2-item" href="{{ route($category->slug.'product') }}">
+                                            <figure class="image">
+                                                <img src="{{ asset($category->image) }} " alt="" class="img-fluid">
+                                            </figure>
+                                            <div class="text">
+                                                <span class="text-uppercase">koleksiyonlar</span>
+                                                <h3>{{ $category->name }}</h3>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-                                <a class="block-2-item" href="#">
-                                    <figure class="image">
-                                        <img src="{{asset('/')}}images/children.jpg" alt="" class="img-fluid">
-                                    </figure>
-                                    <div class="text">
-                                        <span class="text-uppercase">Collections</span>
-                                        <h3>Children</h3>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-                                <a class="block-2-item" href="#">
-                                    <figure class="image">
-                                        <img src="{{asset('/')}}images/men.jpg" alt="" class="img-fluid">
-                                    </figure>
-                                    <div class="text">
-                                        <span class="text-uppercase">Collections</span>
-                                        <h3>Men</h3>
-                                    </div>
-                                </a>
-                            </div>
+                                @endforeach
+                            @endif
                         </div>
 
                     </div>

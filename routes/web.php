@@ -21,9 +21,9 @@ Route::group(['middleware' => 'sitesetting'], function () {
     Route::get('/', [PageHomeController::class, 'home'])->name('home');
 
     Route::get('/urunler', [PageController::class, 'products'])->name('product');// ürünler
-    Route::get('/erkek-giyim', [PageController::class, 'products'])->name('men');
-    Route::get('/kadin-giyim', [PageController::class, 'products'])->name('women');
-    Route::get('/cocuk-giyim', [PageController::class, 'products'])->name('child');
+    Route::get('/erkek/{slug?}', [PageController::class, 'products'])->name('erkekproduct');
+    Route::get('/kadin/{slug?}', [PageController::class, 'products'])->name('kadinproduct');
+    Route::get('/cocuk/{slug?}', [PageController::class, 'products'])->name('cocukproduct');
     Route::get('/indirimdekiler', [PageController::class, 'discountproducts'])->name('discount');
 
 

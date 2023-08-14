@@ -1,8 +1,5 @@
 @extends('frontend.layout.app')
 
-
-
-
 @section('content')
 
     <div class="site-section border-bottom" data-aos="fade">

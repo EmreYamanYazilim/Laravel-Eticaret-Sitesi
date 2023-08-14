@@ -12,7 +12,7 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-7">
                     <h2 class="h3 mb-3 text-black">Bizimle İletişime Geç </h2>
                 </div>
                 <div class="col-md-7">
@@ -78,12 +78,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-5 ml-auto">
+                <div class="col-md-12 ml-auto">
                     <div class="p-4 border mb-3">
                         <span class="d-block text-primary h6 text-uppercase">Adress</span>
                         <p class="mb-0">{{ $settings['adres'] }}</p>
                     </div>
-
                 </div>
             </div>
         </div>
