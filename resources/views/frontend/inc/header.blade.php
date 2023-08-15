@@ -39,7 +39,6 @@
     </div>
     <nav class="site-navigation text-right text-md-center" role="navigation">
         <div class="container">
-
             <ul class="site-menu js-clone-nav d-none d-md-block">
                 <li class="active"><a href="{{ route('home') }}">Anasayfa</a></li>
                 <li class="has-children">
@@ -47,19 +46,15 @@
                     <ul class="dropdown">
 
                         @if(!empty($categories))
-                            @foreach($categories as $category)
-                                @if($category->category_up == null)
+                            @foreach($categories->where('category_up',null) as $category)
                                     <li class="has-children">
                                         <a href="{{ route($category->slug.'product') }}">{{ $category->name }}</a>
                                         <ul class="dropdown">
-                                            @foreach($categories as $subCategory)
-                                                @if($subCategory->category_up == $category->id)
+                                            @foreach($category->subcategory as $subCategory)
                                                     <li><a href="{{ route($category->slug.'product',$subCategory->slug) }}">{{ $subCategory->name }}</a></li>
-                                                @endif
                                             @endforeach
                                         </ul>
                                     </li>
-                                @endif
                             @endforeach
                         @endif
 {{--                            <li><a href="#">Menu One</a></li>--}}

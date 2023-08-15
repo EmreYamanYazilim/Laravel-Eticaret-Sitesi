@@ -18,6 +18,11 @@ class Category extends Model
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
 
+    public function subcategory()
+    {
+        return $this->hasMany(Category::class, 'category_up', 'id');
+    }
+
     public function sluggable(): array
     {
         return [
