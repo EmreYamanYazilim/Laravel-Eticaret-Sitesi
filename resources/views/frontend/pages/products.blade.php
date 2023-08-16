@@ -51,7 +51,7 @@
                                         <div class="block-4-text p-4">
                                             <h3><a href="{{ route('productdetail', $product->slug) }}">{{ $product->name }}</a></h3>
                                             <p class="mb-0">{{ $product->short_text }}  </p>
-                                            <p class="text-primary font-weight-bold">{{ number_format($product->price,0)  }}</p>
+                                            <p class="text-primary font-weight-bold">{{ $product->price }}</p>
                                         </div>
                                     </div>
                                 </div>

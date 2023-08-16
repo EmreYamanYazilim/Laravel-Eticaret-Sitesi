@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\AjaxController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PageHomeController;
@@ -35,7 +36,8 @@ Route::group(['middleware' => 'sitesetting'], function () {
     Route::get('/iletisim', [PageController::class, 'contact'])->name('contact');//iletişim
     Route::post('/iletisim/kaydet', [AjaxController::class, 'contactsave'])->name('contact.store');//iletişim veri kaydetme
 
-    Route::get('/alisverissepeti', [PageController::class, 'shopingbasket'])->name('shopingbasket');//sepet
+    Route::get('/alisverissepeti', [CartController::class, 'index'])->name('shopingbasket');//sepet
+    Route::post('/alisverissepeti/ekle', [CartController::class, 'add'])->name('cart.add');
 
 });
 

@@ -9,7 +9,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Category extends Model
 {
-    use Sluggable;
+    use Sluggable,HasFactory;
     protected $fillable = ['image','thumbnail','name','slug','content','category_up','status'];
 
 

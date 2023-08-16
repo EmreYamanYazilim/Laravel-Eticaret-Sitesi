@@ -18,7 +18,7 @@ class PageController extends Controller
         $startprice = $request->start_price ?? null;
         $endprice   = $request->end_price ?? null;
         $order      = $request->order ??  'id';
-        $short      = $request->short ?? 'desc';
+        $sort      = $request->sort ?? 'desc';
 
 
         $products = Product::where('status', '1')->select(['id', 'name', 'slug', 'size', 'color', 'price', 'category_id', 'image'])
@@ -51,7 +51,7 @@ class PageController extends Controller
             ->pluck('color')
             ->toArray();
 
-        $products = $products->orderBy($order,$short)->paginate(3);
+        $products = $products->orderBy($order,$sort)->paginate(9);
 
         return view('frontend.pages.products', compact('products','minprice','maxprice','sizelist','colors','category'));
     }
@@ -88,9 +88,6 @@ class PageController extends Controller
     }
 
 
-    public function shopingbasket()
-    {
-        return view('frontend.pages.shopingbasket');
-    }
+
 
 }
