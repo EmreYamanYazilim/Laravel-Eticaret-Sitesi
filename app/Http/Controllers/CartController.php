@@ -11,10 +11,10 @@ class CartController extends Controller
     public function index()
     {
          $cartItem       = session('cart',[]);
-        $totalPrice     = 0;
+        $totalPrice      = 0;
 
         foreach ($cartItem as $cart) {
-            $totalPrice += $cart['price'] * $cart['qty'];
+            $totalPrice += $cart['price'] * $cart['qty'] ;
         }
 
 
@@ -28,8 +28,8 @@ class CartController extends Controller
 
 
         $productID   = $request->product_id;
-        $qty         = $request->qty;
-         $size        = $request->size;
+        $qty         = $request->qty ?? 1; // adet  belirtilmediyse  1 koy
+        $size        = $request->size;
 
           $urun = Product::find($productID);
 
@@ -52,13 +52,21 @@ class CartController extends Controller
                 'size'  =>  $size,
                    ];
         }
-          session(['cart' => $cartItem]);
-        return back()->withSuccess('ürün başarı ile sepete yüklendi');
+         session(['cart' => $cartItem]);
+         return back()->withSuccess('ürün başarı ile sepete yüklendi');
 
     }
 
-    public function remove()
+    public function remove(Request $request)
     {
+        $productID  =   $request->product_id;
+        $cartItem   =   session('cart',[]);
+
+        if (array_key_exists($productID,$cartItem)){
+            unset($cartItem[$productID]);
+        }
+        session(['cart'=>$cartItem]);
+        return back()->withSuccess('ürün başarı ile silindir');
 
     }
 

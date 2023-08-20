@@ -12,10 +12,16 @@
 
     <div class="site-section">
         <div class="container">
-            <div class="row mb-5">
-                <form class="col-md-12" method="post">
-                    <div class="site-blocks-table">
-                        <table class="table table-bordered">
+            <div class="row">
+                <div class="col-lg-12">
+                    @if(session()->get('success'))
+                        <div class="alert alert-success">{{ session()->get('success') }}</div>
+                    @endif
+                </div>
+            </div>
+            <div class="row mb-5" >
+                    <div  class="col-lg-12 site-blocks-table"   >
+                        <table class=" table table-bordered">
                             <thead>
                             <tr>
                                 <th class="product-thumbnail">Resim</th>
@@ -31,7 +37,7 @@
 
 
                             @if($cartItem)
-                            @foreach($cartItem as $cart)
+                            @foreach($cartItem as $key => $cart)
                                 <tr>
                                     <td class="product-thumbnail">
                                         <img src="{{asset($cart['image'])}}" alt="Image" class="img-fluid">
@@ -53,7 +59,12 @@
 
                                     </td>
                                     <td>{{$cart['price'] * $cart['qty']}}</td>
-                                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                                    <form action="{{ route('basket.remove') }}" method="post">
+                                        @csrf
+                                    <td>
+                                        <input type="hidden" name="product_id" value="{{ $key }}">
+                                        <button type="submit" class="btn btn-primary btn-sm">X</button></td>
+                                    </form>
                                 </tr>
                             @endforeach
                             @endif
@@ -61,7 +72,6 @@
                             </tbody>
                         </table>
                     </div>
-                </form>
             </div>
 
             <div class="row">

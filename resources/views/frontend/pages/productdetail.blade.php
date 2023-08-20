@@ -15,6 +15,13 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
+                <div class='col-lg-12'>
+                    @if(session()->get('success'))
+                        <div class="alert alert-success">{{session()->get('success') }}</div>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <img src="{{asset('/')}}images/cloth_1.jpg" alt="Image" class="img-fluid">
                 </div>
@@ -33,16 +40,16 @@
 
                         <div class="mb-1 d-flex">
                             <label for="option-s" class="d-flex mr-3 mb-3">
-                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-s" name="size" value="S"></span> <span class="d-inline-block text-black">S</span>
+                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input  type="radio"  id="option-s" name="size"  value="S" {{ $product->size == 'S' ? 'checked' : '' }}  ></span> <span class="d-inline-block text-black">S</span>
                             </label>
                             <label for="option-m" class="d-flex mr-3 mb-3">
-                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-m" name="size" value="M"></span> <span class="d-inline-block text-black">M</span>
+                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-m" name="size" value="M" {{ $product->size == 'M' ? 'checked' : '' }} ></span> <span class="d-inline-block text-black">M</span>
                             </label>
                             <label for="option-l" class="d-flex mr-3 mb-3">
-                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-l" name="size" value="L"></span> <span class="d-inline-block text-black">L</span>
+                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-l" name="size" value="L"  {{ $product->size == 'L' ? 'checked' : '' }}></span> <span class="d-inline-block text-black">L</span>
                             </label>
                             <label for="option-xl" class="d-flex mr-3 mb-3">
-                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="size" value="XL"></span> <span class="d-inline-block text-black"> XL</span>
+                                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="size" value="XL"  {{ $product->size == 'XL' ? 'checked' : '' }}></span> <span class="d-inline-block text-black"> XL</span>
                             </label>
                         </div>
 
