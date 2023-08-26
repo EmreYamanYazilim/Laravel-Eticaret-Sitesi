@@ -88,7 +88,7 @@
                         @if(!empty($categories))
                             @foreach($categories->where('category_up',null) as $category)
                                 <ul class="list-unstyled mb-0">
-                                <li class="mb-1"><a href="{{ route($category->slug.'product') }}" class="d-flex"><span>{{ $category->name }}</span> <span class="text-black ml-auto">({{ $category->items_count }})</span></a></li>
+                                <li class="mb-1"><a href="{{ route($category->slug.'product') }}" class="d-flex"><span>{{ $category->name }}</span> <span class="text-black ml-auto">({{ $category->getTotalProductCount() }})</span></a></li>
                                 </ul>
                             @endforeach
                         @endif

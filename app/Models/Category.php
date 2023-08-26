@@ -15,13 +15,31 @@ class Category extends Model
 
     public function items()
     {
-        return $this->hasMany(Product::class, 'category_id', 'id');
+        return $this->hasMany(Product::class,
+            'category_id',
+            'id');
     }
 
     public function subcategory()
     {
-        return $this->hasMany(Category::class, 'category_up', 'id');
+        return $this->hasMany(Category::class,
+            'category_up',
+            'id');
+
     }
+
+
+    public function getTotalProductCount()
+    {
+        $total = $this->items()->count();
+
+        foreach ($this->subcategory as $childCategory) {
+
+            $total += $childCategory->items()->count();  // alt kategorideki ürünlerin sayısını toplayıp verme
+        }
+        return $total;
+    }
+
 
     public function sluggable(): array
     {
