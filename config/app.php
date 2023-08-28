@@ -169,6 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
 
     ])->toArray(),
 
@@ -185,7 +187,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'ImageResize' => Intervention\Image\Facades\Image::class,
 
     ])->toArray(),
 
