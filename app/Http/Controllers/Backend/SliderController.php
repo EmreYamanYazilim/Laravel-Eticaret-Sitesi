@@ -25,7 +25,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.slider.create');
+        return view('backend.pages.slider.edit');
     }
 
     /**
@@ -33,22 +33,32 @@ class SliderController extends Controller
      */
     public function store(SliderRequest $request)
     {
-
         if ($request->hasFile('image')) {
             $resim      =       $request->file('image');
-            $dosyaadi   =       time().'-'.Str::slug($request->name).'.'.$resim->getClientOriginalExtension();
-//          $resim->move(public_path('image/slider'), $dosyaadi);
-            $resim = ImageResize::make($resim)->save(public_path('image/slider'.$dosyaadi));
+            $uzanti     = $resim->getClientOriginalExtension();
+            $dosyaadi   =       time().'-'.Str::slug($request->name);
+            $yukleklasor= 'image/slider/';
 
+//          $resim->move(public_path('image/slider'), $dosyaadi);
+
+            if ($uzanti == 'pdf' || $uzanti == 'svg' || $uzanti == 'webp' || $uzanti == 'jiff') {
+                $resim->move(public_path($yukleklasor), $dosyaadi.'.'.$uzanti);
+                $resimurl = $yukleklasor.$dosyaadi.'.'.$uzanti;
+            }else{
+                $resim = ImageResize::make($resim);
+                $resim->encode('webp',75)->save($yukleklasor.$dosyaadi.'.webp');
+                $resimurl = $dosyaadi.'.webp';
+
+            }
         }
 
 
         Slider::create([
             'name'      =>  $request->name,
             'link'      =>  $request->link,
-            'content'   =>  $request->content,
-            'image'     =>  $dosyaadi ?? null,
+            'content'   =>  $request->content1,
             'status'    =>  $request->status,
+            'image'     =>  $resimurl ?? null,
         ]);
 
         return back()->withSuccess(' başarı ile oluşturuldu');
@@ -78,8 +88,35 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        if ($request->hasFile('image')) {
+            $resim      =       $request->file('image');
+            $uzanti     = $resim->getClientOriginalExtension();
+            $dosyaadi   =       time().'-'.Str::slug($request->name);
+            $yukleklasor= 'image/slider/';
+
+//          $resim->move(public_path('image/slider'), $dosyaadi);
+
+            if ($uzanti == 'pdf' || $uzanti == 'svg' || $uzanti == 'webp' || $uzanti == 'jiff') {
+                $resim->move(public_path($yukleklasor), $dosyaadi.'.'.$uzanti);
+                $resimurl = $yukleklasor.$dosyaadi.'.'.$uzanti;
+            }else{
+                $resim = ImageResize::make($resim);
+                $resim->encode('webp',75)->save($yukleklasor.$dosyaadi.'.webp');
+                $resimurl = $dosyaadi.'.webp';
+
+            }
+        }
+
+
+        Slider::where('id',$id)->update([
+            'name'      =>  $request->name,
+            'link'      =>  $request->link,
+            'content'   =>  $request->content,
+            'status'    =>  $request->status,
+            'image'     =>  $resimurl ?? null,
+        ]);
+
+        return back()->withSuccess(' başarı ile Güncellendi ');    }
 
     /**
      * Remove the specified resource from storage.

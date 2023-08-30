@@ -24,7 +24,7 @@ class SliderRequest extends FormRequest
         return [
 
             'name'      =>  'required|min:3|string',
-            'content'   =>  'required|string',
+            'content1'   =>  'required'
         ];
 
     }
@@ -35,8 +35,7 @@ class SliderRequest extends FormRequest
             'name.required'     =>      'Başlık Girimlesi zorunlu alan ',
             'name.min'          =>      'Başlık En az 3 karakter olmalı ',
             'name.string'       =>      'Başlıkisim karakterlerden olmalı ',
-            'content.required'  =>      'Slogan Girilmesi Zorunlu Alan ',
-            'content.string'    =>      'Slogan isim karakterlerden olmalı ',
+            'content1.required'  =>      'Slogan Girilmesi Zorunlu Alan ',
 
         ];
     }
