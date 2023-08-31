@@ -19,7 +19,16 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('backend')}}/css/vertical-layout-light/style.css">
     <!-- endinject -->
+    <link href="{{ asset('backend/css/bootstrap-toggle.min.css') }}" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('backend/css/alertify.min.css') }}"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="{{ asset('backend/css/themesbootstrap.min.css') }}"/>
+
     <link rel="shortcut icon" href="{{asset('backend')}}/images/favicon.png" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- ajax için ve güvenlik için token  -->
+
+
 </head>
 <body>
 <div class="container-scroller">
@@ -213,6 +222,7 @@
 </div>
 <!-- container-scroller -->
 
+<script src="{{ asset('backend/js/jquery.min.js') }}"></script>
 <!-- plugins:js -->
 <script src="{{asset('backend')}}/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
@@ -234,6 +244,11 @@
 <script src="{{asset('backend')}}/js/dashboard.js"></script>
 <script src="{{asset('backend')}}/js/Chart.roundedBarCharts.js"></script>
 <script src="{{asset('backend')}}/js/file-upload.js"></script>
+
+<script src="{{ asset('backend/js/bootstrap-toggle.min.js') }}"></script>
+<script src="{{asset('backend/js/build_alertify.min.js')}}"></script>
+
+@yield('customjs')
 
 <!-- End custom js for this page-->
 </body>

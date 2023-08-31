@@ -10,6 +10,13 @@
                     <p class="card-description">
                         <a href="{{ route('panel.slider.create' ) }}" class="btn btn-primary">Ekle</a>
                     </p>
+                    <div>
+                        @if(session()->get('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}
+                            </div>
+                        @endif
+                    </div>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -31,10 +38,19 @@
                                         <td>{{ $slider->name }}</td>
                                         <td>{{ $slider->content }}</td>
                                         <td>{{ $slider->link }}</td>
-                                        <td><label class="badge badge-{{ $slider->status == '1' ? 'success' : 'danger' }}"> {{ $slider->status == '1' ? 'Aktif' : 'Pasif' }} </label></td>
+                                        <td>
+                                            <div class="checkbox" item-id="{{ $slider->id }}">
+                                                <label>
+                                                    <input type="checkbox" class="durum" data-on="Aktif" data-off="Pasif" data-onstyle="success" data-offstyle="dark" {{ $slider->status == '1' ? 'checked' : '' }} data-toggle="toggle">
+                                                </label>
+                                            </div>
+
+                                        </td>
+
                                         <td class="d-flex">
                                             <a href="{{ route('panel.slider.edit', $slider->id) }}" class="btn btn-primary mr-2">Düzenle</a>
                                             <form action="{{ route('panel.slider.destroy',$slider->id) }}" method="POST">
+                                                @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Sil</button>
                                             </form>
@@ -53,4 +69,32 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('customjs')
+
+    <script >
+        $(document).on('change', '.durum', function (e) {
+            id      = $(this).closest('.checkbox').attr('item-id');
+            statu   = $(this).prop('checked');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:"POST",
+                url:"{{route('panel.slider.status')}}",
+                data:{
+                    id:id,
+                    statu:statu
+                },
+                success:function (response) {
+                    if (response.status == "true") {
+                        alertify.success("Durum Aktif Edildi");
+                    } else {
+                        alertify.error("Durum Pasif Edildi");
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

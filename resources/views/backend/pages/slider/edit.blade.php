@@ -36,8 +36,8 @@
                         @method('PUT')
                     @endif
                     <div class="form-group">
-                        <div class="input-group col-xs-12">
-                            <img src="{{ asset($slider->image ?? 'image/resimyok.webp') }}" alt="">
+                        <div class="input-group col-xs-12" >
+                            <img width="150" height="155" src="{{ asset($slider->image ?? 'image/resimyok.webp') }}" alt="">
                         </span>
                         </div>
                     </div>

@@ -47,7 +47,7 @@ class SliderController extends Controller
             }else{
                 $resim = ImageResize::make($resim);
                 $resim->encode('webp',75)->save($yukleklasor.$dosyaadi.'.webp');
-                $resimurl = $dosyaadi.'.webp';
+                $resimurl = $yukleklasor.$dosyaadi.'.webp';
 
             }
         }
@@ -102,7 +102,7 @@ class SliderController extends Controller
             }else{
                 $resim = ImageResize::make($resim);
                 $resim->encode('webp',75)->save($yukleklasor.$dosyaadi.'.webp');
-                $resimurl = $dosyaadi.'.webp';
+                $resimurl = $yukleklasor.$dosyaadi.'.webp';
 
             }
         }
@@ -111,7 +111,7 @@ class SliderController extends Controller
         Slider::where('id',$id)->update([
             'name'      =>  $request->name,
             'link'      =>  $request->link,
-            'content'   =>  $request->content,
+            'content'   =>  $request->content1,
             'status'    =>  $request->status,
             'image'     =>  $resimurl ?? null,
         ]);
@@ -123,6 +123,23 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $slider = Slider::where('id', $id)->firstOrFail();
+        if (file_exists($slider->image)) {
+            if (!empty($slider->image)) {
+                unlink($slider->image);
+            }
+        }
+        $slider->delete();
+        return back()->withSuccess('Slider Başarı İle Silindi');
+
+
+    }
+
+    public function status(Request $request)  //aktif pasif bölümü
+    {
+        $update = $request->statu;
+        $updatecheck = $update == "false" ? '0' : '1';
+        Slider::where('id',$request->id)->update(['status'=>$updatecheck]);
+        return response(['error'=>false, 'status'=>$update]);
     }
 }
