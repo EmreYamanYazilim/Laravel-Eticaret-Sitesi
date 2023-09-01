@@ -34,24 +34,14 @@ class SliderController extends Controller
     public function store(SliderRequest $request)
     {
         if ($request->hasFile('image')) {
-            $resim      =       $request->file('image');
-            $uzanti     = $resim->getClientOriginalExtension();
-            $dosyaadi   =       time().'-'.Str::slug($request->name);
-            $yukleklasor= 'image/slider/';
+            $image       =       $request->file('image');
+            $dosyadi     =       $request->name;
+            $yukleKlasor =       'image/slider/';
+            $resimurl    =       resimyukle($image,$dosyadi,$yukleKlasor);  // helper.php ile function olarak komutu ordan çektik
 
-//          $resim->move(public_path('image/slider'), $dosyaadi);
 
-            if ($uzanti == 'pdf' || $uzanti == 'svg' || $uzanti == 'webp' || $uzanti == 'jiff') {
-                $resim->move(public_path($yukleklasor), $dosyaadi.'.'.$uzanti);
-                $resimurl = $yukleklasor.$dosyaadi.'.'.$uzanti;
-            }else{
-                $resim = ImageResize::make($resim);
-                $resim->encode('webp',75)->save($yukleklasor.$dosyaadi.'.webp');
-                $resimurl = $yukleklasor.$dosyaadi.'.webp';
 
-            }
         }
-
 
         Slider::create([
             'name'      =>  $request->name,
@@ -88,6 +78,7 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //  helper.php resimyukle funciton  yapmdan yapılan yöntem
         if ($request->hasFile('image')) {
             $resim      =       $request->file('image');
             $uzanti     = $resim->getClientOriginalExtension();
@@ -124,11 +115,13 @@ class SliderController extends Controller
     public function destroy(string $id)
     {
         $slider = Slider::where('id', $id)->firstOrFail();
-        if (file_exists($slider->image)) {
-            if (!empty($slider->image)) {
-                unlink($slider->image);
-            }
-        }
+//        if (file_exists($slider->image)) {//bu dosya varmı varsa çalıştır dedik  hatayı engellemek için
+//            if (!empty($slider->image)) {
+//                unlink($slider->image);
+//            }
+//        }
+
+        dosyasil($slider->image); // helper.php de dinamik hale getirerek  silme işlemini yaptırıcak komutlar orada
         $slider->delete();
         return back()->withSuccess('Slider Başarı İle Silindi');
 

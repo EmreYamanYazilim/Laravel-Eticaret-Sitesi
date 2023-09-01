@@ -5,7 +5,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Slider</h4>
+                <h4 class="card-title">Kategori</h4>
 
                 @if($errors)
                     @foreach($errors->all() as $error)
@@ -21,23 +21,23 @@
                     </div>
                 @endif
 
-                @if(!empty($slider->id))
+                @if(!empty($category->id))
                     @php
-                        $routeLink = route('panel.slider.update',$slider->id);
+                        $routeLink = route('panel.category.update',$category->id);
                      @endphp
                 @else
                     @php
-                        $routeLink =  route('panel.slider.store');
+                        $routeLink =  route('panel.category.store');
                     @endphp
                 @endif
                 <form action="{{ $routeLink }}" method="post"   enctype="multipart/form-data">
                     @csrf
-                    @if(!empty($slider->id))
+                    @if(!empty($category->id))
                         @method('PUT')
                     @endif
                     <div class="form-group">
                         <div class="input-group col-xs-12" >
-                            <img width="150" height="155" src="{{ asset($slider->image ?? 'https://fakeimg.pl/250x190/') }}" alt="">
+                            <img width="150" height="155" src="{{ asset($category->image ?? 'https://fakeimg.pl/250x190/') }}" alt="">
                         </span>
                         </div>
                     </div>
@@ -53,20 +53,30 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Başlık </label>
-                        <input type="text" class="form-control" id="name" placeholder="Slider Başlık" value="{{ $slider->name ?? '' }}" name="name">
+                        <input type="text" class="form-control" id="name" placeholder="Kategori ismi" value="{{ $category->name ?? '' }}" name="name">
+                    </div>
+                    <div class="form-grup">
+                        <label for="name" >Baslık</label>
+                        <select name="category_up" class="form-control">
+                            <option value="" >Kategori Seç</option>
+                            @if($categories)
+                                @foreach($categories as $alt)
+                                    <option value="{{ $alt->id }}" {{ isset($category) && $category->category_up == $alt->id ? 'selected' : '' }} >{{ $alt->name }}</option>
+                                @endforeach
+                            @endif
+
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="content1">Slogan</label>
-                        <input type="text" class="form-control" id="content1" placeholder="Slider Slogan" rows="3" value="{{ $slider->content ?? '' }}" name="content1">
+                        <label for="content1">Content </label>
+                        <textarea type="text" rows="3" class="form-control" id="content1" placeholder="Kategori " name="content1">{{ $category->content1 ?? '' }}</textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="link">Link</label>
-                        <input type="text" class="form-control" id="link" placeholder="Slider link" value="{{ $slider->link ?? '' }}" name="link">
-                    </div>
+
+
                     <div class="form-group">
                         <label for="status">Durum</label>
                         @php
-                            $status = $slider->status ?? '1';
+                            $status = $category->status ?? '1';
                          @endphp
                         <select class="form-control" id="status" name="status">
                             <option value="0" {{ $status == '0' ? 'selected' : '' }}>Pasif</option>

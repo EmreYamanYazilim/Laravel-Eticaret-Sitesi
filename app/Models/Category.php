@@ -28,6 +28,13 @@ class Category extends Model
 
     }
 
+    public function category()
+    {
+        return $this->hasOne(Category::class,
+        'id',
+        'category_up');
+    }
+
 
     public function getTotalProductCount()
     {
