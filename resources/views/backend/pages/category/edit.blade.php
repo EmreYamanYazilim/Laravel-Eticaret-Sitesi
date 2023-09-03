@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content1">Content </label>
-                        <textarea type="text" rows="3" class="form-control" id="content1" placeholder="Kategori " name="content1">{{ $category->content1 ?? '' }}</textarea>
+                        <textarea   class="form-control" id="content1" name="content1" placeholder="Kategori Yazısı" rows="3">{{ $category->content ?? '' }}</textarea>
                     </div>
 
 

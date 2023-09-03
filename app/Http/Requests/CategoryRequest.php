@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
         return [
 
             'name'      =>  'required|min:3|string',
-            'content1'   =>  'required'
+            'content1'   =>  'required',
         ];
 
     }

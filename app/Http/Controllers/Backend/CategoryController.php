@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -22,28 +23,33 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('category_up',null)->get();
+        $categories = Category::get();
         return view('backend.pages.category.edit',compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         if ($request->hasFile('image')) {
-            $image   = $request->file('image');
-            $dosyadi = $request->name;
-            $yukleKlasor =  'image/category';
-            $resimurl = resimyukle($image, $dosyadi, $yukleKlasor);
+            $image          = $request->file('image');
+            $dosyadi        = $request->name;
+            $yukleKlasor    =  'image/category/';
+            $resimurl       = resimyukle($image, $dosyadi, $yukleKlasor);
+        }
+             Category::create([
+                'name'          => $request->name,
+                'category_up'   => $request->category_up,
+                'status'        => $request->status,
+                'content'       => $request->content1,
+                'image'         => $resimurl ?? null,
 
-            Category::create([
-                'name' => $request->name,
-                'image' => $resimurl ?? null,
+
 
             ]);
             return back()->withSuccess('başarı ile değiştirildi');
-        }
+
     }
 
     /**
@@ -60,28 +66,53 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category   = Category::where('id',$id)->first();
-        $categories = Category::where('category_up', null)->get();
+        $categories = Category::get();
         return view('backend.pages.category.edit', compact('category', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
-        //
+         $category = Category::where('id', $id)->firstOrFail();
+
+        if ($request->hasFile('image')) {
+            dosyasil($category->image);
+            $image          = $request->file('image');
+            $dosyadi        = $request->name;
+            $yukleKlasor    =  'image/category/';
+            $resimurl       = resimyukle($image, $dosyadi, $yukleKlasor);
+        }
+             $category->update([
+                'name'          => $request->name,
+                'category_up'   => $request->category_up,
+                'status'        => $request->status,
+                'content'       => $request->content1,
+                'image'         => $resimurl ?? NULL,
+
+            ]);
+            return back()->withSuccess('başarı ile değiştirildi');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $category = Category::where('id',$request->id)->firstorfail();
+        dosyasil($category->image); // helper.php de dinamik hale getirerek  silme işlemini yaptırıcak komutlar orada
+        $category->delete();
+        return back()->withSuccess('Slider Başarı İle Silindi');
+
     }
 
-    public function status()
+    public function status(CategoryRequest $request)  //aktif pasif bölümü
     {
-        //
+        $update = $request->statu;
+        $updatecheck = $update == "false" ? '0' : '1';
+        Category::where('id',$request->id)->update(['status'=>$updatecheck]);
+        return response(['error'=>false, 'status'=>$update]);
     }
 }

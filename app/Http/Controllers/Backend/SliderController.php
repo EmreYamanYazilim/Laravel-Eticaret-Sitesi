@@ -78,6 +78,7 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $slider = Slider::where('id', $id)->firstOrFail();
         //  helper.php resimyukle funciton  yapmdan yapılan yöntem
         if ($request->hasFile('image')) {
             $resim      =       $request->file('image');
@@ -99,7 +100,7 @@ class SliderController extends Controller
         }
 
 
-        Slider::where('id',$id)->update([
+        $slider->update([
             'name'      =>  $request->name,
             'link'      =>  $request->link,
             'content'   =>  $request->content1,
