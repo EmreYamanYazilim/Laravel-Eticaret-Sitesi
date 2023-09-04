@@ -18,31 +18,31 @@ class AboutController extends Controller
     public function update(Request $request, $id = 1)
     {
         $about =About::where('id',1)->first();
-
-        if (!empty($about->image == null)) {
-            $request->hasFile('image');
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
             $dosyaadi = $request->name;
             $yukle = 'image/about/';
             $urlYukle = resimyukle($image,$dosyaadi,$yukle);
-        }else{
-            $request->hasFile('image');
-            $image = $request->file('image');
-            unlink($about->image);
-            $dosyaadi = $request->name;
-            $yukle = 'image/about/';
-            $urlYukle = resimyukle($image,$dosyaadi,$yukle);
-
+            dosyasil($about->image);
         }
-        // Null geldiği zamanda dosya yüklemiyor o yüzden alltaki iptal  olaki dosya silinirse resim yüklenmez
-//        if ($request->hasFile('image')) {
+
+//        if (!empty($about->image == null)) {
+//            $request->hasFile('image');
 //            $image = $request->file('image');
 //            $dosyaadi = $request->name;
 //            $yukle = 'image/about/';
 //            $urlYukle = resimyukle($image,$dosyaadi,$yukle);
-//            unlink($about->image);
+//        }else{
+//            $request->hasFile('image');
+//            $image = $request->file('image');
+//            dosyasil($about->image);
+//            $dosyaadi = $request->name;
+//            $yukle = 'image/about/';
+//            $urlYukle = resimyukle($image,$dosyaadi,$yukle);
+//
 //        }
 
+        
         $about->updateOrCreate(
             ['id' => $id],  //  ilk array şart olarak gelecek istersek benzer işlemlerde e mailde tanıtabiliriz tek bölüm olucağı için idsi 1 olanı getiricek
             [
