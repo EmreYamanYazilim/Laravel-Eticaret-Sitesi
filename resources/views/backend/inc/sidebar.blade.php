@@ -44,21 +44,16 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="icon-paper menu-icon"></i>
-                <span class="menu-title">Documention</span>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
                 <i class="icon-bar-graph menu-icon"></i>
-                <span class="menu-title">Charts</span>
+                <span class="menu-title">Gelen Kutusu</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="charts">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('panel.contact.index') }}">Gelenler</a></li>
                 </ul>
             </div>
         </li>
@@ -111,6 +106,12 @@
                     <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
                 </ul>
             </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Documention</span>
+            </a>
         </li>
 
     </ul>
