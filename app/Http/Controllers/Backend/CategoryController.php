@@ -99,9 +99,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $category = Category::where('id',$request->id)->firstorfail();
+        $category = Category::where('id',$id)->firstorfail();
         dosyasil($category->image); // helper.php de dinamik hale getirerek  silme işlemini yaptırıcak komutlar orada
         $category->delete();
         return back()->withSuccess('Slider Başarı İle Silindi');

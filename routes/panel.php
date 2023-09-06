@@ -24,7 +24,7 @@ Route::group(['middleware' => ['panelsetting','auth'], 'prefix' =>'panel' ,'as' 
 
     //resourceli
     Route::resource('/category',CategoryController::class)->except('destroy');
-    Route::delete('/category/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category-durum/update', [CategoryController::class, 'status'])->name('category.status');
 
     //-----//

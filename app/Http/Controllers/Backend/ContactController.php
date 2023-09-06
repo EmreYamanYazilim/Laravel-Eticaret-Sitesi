@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::paginate(25);
         return view('backend.pages.contact.index',compact('contacts'));
 
 

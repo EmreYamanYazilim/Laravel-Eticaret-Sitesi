@@ -13,24 +13,27 @@ class PageController extends Controller
     public function products(Request $request,$slug=null)
     {
         $category   = $request->segment(1) ?? null;
-        $size       = $request->size ?? null;
-        $color      = $request->color ?? null;
-        $startprice = $request->start_price ?? null;
-        $endprice   = $request->end_price ?? null;
-        $order      = $request->order ??  'id';
-        $sort      = $request->sort ?? 'desc';
+        $sizes      = !empty($request->size) ? explode(',',$request->size) : null ;
+        $colors     = !empty($request->color) ? explode(',',$request->color) : null;
+        $startprice = $request->min     ?? null;
+        $endprice   = $request->max     ?? null;
+        $order      = $request->order   ??  'id';
+        $sort       = $request->sort    ?? 'desc';
 
 
         $products = Product::where('status', '1')->select(['id', 'name', 'slug', 'size', 'color', 'price', 'category_id', 'image'])
-            ->where(function ($q) use ($size, $color, $startprice, $endprice) {
-                if (!empty($size)) {
-                    $q->where('size', $size);
+            ->where(function ($q) use ($sizes, $colors, $startprice, $endprice) {
+                if (!empty($sizes)) {
+                    $q->whereIn('size', $sizes);
                 }
-                if (!empty($color)) {
-                    $q->where('color', $color);
+                if (!empty($colors)) {
+                    $q->whereIn('color', $colors);
                 }
                 if (!empty($startprice && $endprice)) {
-                    $q->whereBetween('price', [$startprice, $endprice]);
+//                    $q->whereBetween('price', [$startprice, $endprice]);
+                    $q->where('price', '>=', $startprice);
+                    $q->where('price', '<=', $endprice);
+
                 }
                 return $q;
             })->with('categoryHasOne:id,name,slug')
@@ -40,8 +43,7 @@ class PageController extends Controller
                 }
                 return $q;
             });
-        $minprice = $products->min('price');
-        $maxprice = $products->max('price');
+
         $sizelist = Product::where('status','1')
             ->groupBY('size')
             ->pluck('size')
@@ -52,8 +54,9 @@ class PageController extends Controller
             ->toArray();
 
         $products = $products->orderBy($order,$sort)->paginate(9);
+        $maxprice = Product::max('price');
 
-        return view('frontend.pages.products', compact('products','minprice','maxprice','sizelist','colors','category'));
+        return view('frontend.pages.products', compact('products','maxprice','sizelist','colors','category'));
     }
 
     public function discountproducts()

@@ -64,6 +64,12 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {{ $contacts->links('pagination::bootstrap-4') }}e
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

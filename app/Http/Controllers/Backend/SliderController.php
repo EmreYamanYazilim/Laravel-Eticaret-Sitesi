@@ -91,10 +91,12 @@ class SliderController extends Controller
             if ($uzanti == 'pdf' || $uzanti == 'svg' || $uzanti == 'webp' || $uzanti == 'jiff') {
                 $resim->move(public_path($yukleklasor), $dosyaadi.'.'.$uzanti);
                 $resimurl = $yukleklasor.$dosyaadi.'.'.$uzanti;
+                dosyasil($slider->image);
             }else{
                 $resim = ImageResize::make($resim);
                 $resim->encode('webp',75)->save($yukleklasor.$dosyaadi.'.webp');
                 $resimurl = $yukleklasor.$dosyaadi.'.webp';
+                dosyasil($slider->image);
 
             }
         }
@@ -116,13 +118,7 @@ class SliderController extends Controller
     public function destroy(string $id)
     {
         $slider = Slider::where('id', $id)->firstOrFail();
-//        if (file_exists($slider->image)) {//bu dosya varmı varsa çalıştır dedik  hatayı engellemek için
-//            if (!empty($slider->image)) {
-//                unlink($slider->image);
-//            }
-//        }
-
-        dosyasil($slider->image); // helper.php de dinamik hale getirerek  silme işlemini yaptırıcak komutlar orada
+        dosyasil($slider->image);
         $slider->delete();
         return back()->withSuccess('Slider Başarı İle Silindi');
 
