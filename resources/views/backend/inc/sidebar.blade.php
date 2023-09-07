@@ -7,56 +7,39 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link"  href="{{ route('panel.slider.index') }}">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title">Slider </span>
-                <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('panel.slider.index') }}">Slider</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('panel.slider.create') }}">Slider Ekle/Duzenle</a></li>
-                </ul>
-            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+            <a class="nav-link"  href="{{ route('panel.category.index') }}" >
                 <i class="icon-columns menu-icon"></i>
                 <span class="menu-title">Kategori</span>
-                <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="form-elements">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('panel.category.index') }}">Kategori</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('panel.category.create') }}">Kategori ekle</a></li>
-                </ul>
-            </div>
-        </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link"  href="{{ route('panel.about.index') }}" >
                 <i class="icon-paper menu-icon"></i>
                 <span class="menu-title">Hakkımızda  </span>
-                <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('panel.about.index') }}">Hakkımızda</a></li>
-                </ul>
-            </div>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  href="{{ route('panel.contact.index') }}">
+                <i class="icon-mail menu-icon"></i>
+                <span class="menu-title">Gelen Kutusu</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  href="{{ route('panel.setting.index') }}">
+                <i class="icon-contract menu-icon"></i>
+                <span class="menu-title">Site Ayarları</span>
+            </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                <i class="icon-bar-graph menu-icon"></i>
-                <span class="menu-title">Gelen Kutusu</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('panel.contact.index') }}">Gelenler</a></li>
-                </ul>
-            </div>
-        </li>
+
+
+
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                 <i class="icon-grid-2 menu-icon"></i>

@@ -48,34 +48,19 @@
                         </div>
                     </div>
 
-{{--                    ürünler burdan başlıyor--}}
-                    <div class="row mb-5">
-                        @if(!empty($products) && $products->count()>0)
-                            @foreach($products as $product)
-                                <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                                    <div class="block-4 text-center border">
-                                        <figure class="block-4-image">
-                                            <a href="{{ route('productdetail', $product->slug) }}"><img src="{{ asset($product->image) }}" alt="Image placeholder" class="img-fluid"></a>
-                                        </figure>
-                                        <div class="block-4-text p-4">
-                                            <h3><a href="{{ route('productdetail', $product->slug) }}">{{ $product->name }}</a></h3>
-                                            <p class="mb-0">{{ $product->short_text }}  </p>
-                                            <p class="text-primary font-weight-bold">{{ $product->price }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
+{{--                  ajax  ürünler burdan başlıyor--}}
+                    <div class="row mb-5 productContent" >
+                        @include('frontend.ajax.productList')
                     </div>
 {{--                    ürünler bitiş--}}
 
-{{--                    paginate bölümü            --}}
-                    <div class="row" data-aos="fade-up">
+{{--                 ajax   paginate bölümü            --}}
+                    <div class="row paginateButtons" data-aos="fade-up">
                         <div class="col-md-12 text-center">
-                            {{--                               {{ $products->whitQueryString()->links('vendor.pagination.bootstrap-4') }}--}}
-                            {{ $products->links('vendor.pagination.bootstrap-4') }}
+                                {{ $products->withQueryString()->links('vendor.pagination.bootstrap-4') }}
+{{--                            {{ $products->links('vendor.pagination.bootstrap-4') }}--}}
 
-                            <div class="site-block-27">
+{{--                            <div class="site-block-27">--}}
 {{--                                <ul>--}}
 {{--                                    <li><a href="#">&lt;</a></li>--}}
 {{--                                    <li class="active"><span>1</span></li>--}}
@@ -85,7 +70,7 @@
 {{--                                    <li><a href="#">5</a></li>--}}
 {{--                                    <li><a href="#">&gt;</a></li>--}}
 {{--                                </ul>--}}
-                            </div>
+{{--                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -213,19 +198,20 @@
 
             newUrl = url.href;
             window.history.pushState({}, '', newUrl);
-            location.reload();
-            // $.ajax({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     },
-            //     type:"GET",
-            //     url:newUrl,
-            //     success: function (response) {
-            //
-            //         $('.productContent').html(response.data);
-            //         $('.paginateButtons').html(response.paginate)
-            //     }
-            // });
+            // location.reload();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:"GET",
+                url:newUrl,
+                success: function (response) {
+
+                    $('.productContent').html(response.data);
+                    $('.paginateButtons').html(response.paginate)
+                }
+            });
 
         }
 
