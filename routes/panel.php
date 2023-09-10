@@ -44,7 +44,7 @@ Route::group(['middleware' => ['panelsetting','auth'], 'prefix' =>'panel' ,'as' 
     Route::post('/setting/store', [SettingController::class, 'store'])->name('setting.store');
     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');
     Route::put('/setting/{id}/update', [SettingController::class, 'update'])->name('setting.update');
-    Route::delete('setting/{id}/destroy', [SettingController::class, 'destory'])->name('setting.destory');
+    Route::delete('setting/{id}/destroy', [SettingController::class, 'destroy'])->name('setting.destory');
 
 
 

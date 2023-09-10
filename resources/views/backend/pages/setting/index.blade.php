@@ -34,7 +34,7 @@
                                     <tr>
                                         <td class="py-1">
                                             @if($setting->set_type == 'image')
-                                                <img src="{{ asset($setting->image) }}" alt="image"/>
+                                                <img src="{{ asset($setting->data) }}" alt="image"/>
                                             @endif
                                         </td>
                                         <td>{{ $setting->name }}</td>

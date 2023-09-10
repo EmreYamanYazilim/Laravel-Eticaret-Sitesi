@@ -29,29 +29,26 @@ class SettingController extends Controller
             ]);
 
         return back()->withSuccess('Başarı ile Kaydedildi');
-
-
     }
 
     public function create()
     {
 
         return view('backend.pages.setting.edit');
-
     }
 
     public function edit($id)
     {
         $setting = SiteSetting::where('id', $id)->first();
         return view('backend.pages.setting.edit', compact('setting'));
-
     }
 
     public function update($id)
     {
         $setting = SiteSetting::where('id', $id)->first();
         return view('backend.pages.setting.edit', compact('setting'));
-
     }
+
+
 
 }
