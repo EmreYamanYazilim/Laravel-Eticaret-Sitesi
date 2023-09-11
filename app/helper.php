@@ -45,3 +45,13 @@ if (!function_exists('strLimit')) {
     }
 
 }
+
+//klasör açma
+
+if (!function_exists('klasorac')) {
+    function klasorac($dosyayol, $izinler = 0777) {
+        if (!file_exists($dosyayol)) {
+            mkdir($dosyayol,$izinler, true);
+        }
+    };
+}

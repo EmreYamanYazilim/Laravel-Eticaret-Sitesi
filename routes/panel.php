@@ -24,7 +24,7 @@ Route::group(['middleware' => ['panelsetting','auth'], 'prefix' =>'panel' ,'as' 
     Route::post('/slider-durum/update', [SliderController::class, 'status'])->name('slider.status');
 
     //resourceli
-    Route::resource('/category',CategoryController::class)->except('destroy');
+    Ro  ute::resource('/category',CategoryController::class)->except('destroy');
     Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category-durum/update', [CategoryController::class, 'status'])->name('category.status');
 
@@ -44,7 +44,7 @@ Route::group(['middleware' => ['panelsetting','auth'], 'prefix' =>'panel' ,'as' 
     Route::post('/setting/store', [SettingController::class, 'store'])->name('setting.store');
     Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');
     Route::put('/setting/{id}/update', [SettingController::class, 'update'])->name('setting.update');
-    Route::delete('setting/{id}/destroy', [SettingController::class, 'destroy'])->name('setting.destory');
+    Route::delete('setting/{id}/destroy', [SettingController::class, 'destroy'])->name('setting.destroy');
 
 
 

@@ -1,5 +1,15 @@
 @extends('backend.layout.app')
 
+@section('customcss')
+    <style>
+        .ck-content{
+            height: 300px !important;
+        }
+    </style>
+
+@endsection
+
+
 @section('content')
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
@@ -38,12 +48,13 @@
 
                         <div class="form-group">
                             <label>Tip</label>
-                            <select name="set_type" id="" class="form-control">
+                            <select name="set_type" id="setTypeSelect" class="form-control">
                                 <option value="">Tür Seçin</option>
                                 <option
-                                    value="ckeditor" {{ isset($setting->set_type) && $setting->set_type == 'ckeditor' ? 'selected' : '' }}>
+                                    value="ckeditor" class="editor" {{ isset($setting->set_type) && $setting->set_type == 'ckeditor' ? 'selected' : '' }}>
                                     Ck Editör
-                                </option>                                <option
+                                </option>
+                                <option
                                     value="textarea" {{ isset($setting->set_type) && $setting->set_type == 'textarea' ? 'selected' : '' }}>
                                     textarea
                                 </option>
@@ -96,13 +107,15 @@
 
                             <div class="inputContent">
                                 @if(isset($setting->set_type) && $setting->set_type == 'ckeditor')
-                                    <textarea class="form-control" id="ckeditor" placeholder="Data" rows="5" value="{{ $setting->data ?? '' }}" name="data"></textarea>
+                                    <textarea name="data"  class="form-control" id="editor"  rows="3" > {!! $setting->data ?? '' !!}</textarea>
+                                @elseif(isset($setting->set_type) && $setting->set_type == 'textarea')
+                                        <textarea name="data"  class="form-control"   rows="3">{!! $setting->data ?? '' !!}</textarea>
                                 @elseif(isset($setting->set_type) && $setting->set_type == 'image' || isset($setting->set_type) && $setting->set_type == 'file')
-                                    <input type="file" name="data" placeholder="yazınız">
+                                    <input type="file" name="data">
                                 @elseif(isset($setting->set_type) && $setting->set_type == 'text')
-                                    <input type="text" name="data" placeholder="Yazınız " value="{{ $setting->data ?? '' }}">
+                                    <input type="text" class="form-control" name="data" placeholder="Yazınız" value="{{ $setting->data ?? '' }}">
                                 @elseif(isset($setting->set_type) && $setting->set_type == 'email')
-                                    <input type="email"  value="{{ $setting->data ?? '' }}">
+                                    <input type="email"  class="form-control" value="{{ $setting->data ?? '' }}">
                                 @else
 
                                 @endif
@@ -126,13 +139,77 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/translations/tr.js"></script>
 
     <script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ),{
-                language:'tr',
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+
+        function ckeditor() {
+            ClassicEditor
+                .create( document.querySelector( '#editor' ),{
+                    language:'tr',
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+        }
+
+
+        $(document).on('change', '#setTypeSelect', function (e) {
+            selectType = $(this).val();
+            createInput(selectType);
+        });
+
+
+
+        function createInput(type) {
+            {{--defaultText = "{!! $setting->data ?? '' !!}"--}}
+                defaultText = "{!! isset($setting->data) ? $setting->data : '' !!}";
+
+            if (type === 'text') {
+                newInput = $('<input>').attr({
+                    type : 'text',
+                    name: 'data',
+                    value: defaultText,
+                    class: 'form-control',
+                    placeholder: 'Value giriniz',
+                });
+            }else if (type === 'email') {
+                newInput = $('<input>').attr({
+                    type: 'email',
+                    name: 'data',
+                    value: defaultText,
+                    class: 'form-control',
+                    placeholder: 'Email Giriniz',
+                });
+
+            }else if (type === 'file' || type === 'image') {
+                newInput = $('<input>').attr({
+                    type: 'file',
+                    name: 'data',
+                    class: 'form-control',
+                });
+
+            }else if (type === 'ckeditor') {
+                newInput = $('<textarea>').attr({
+                    name: 'data',
+                    class: 'editor',
+                    value: defaultText,
+                    id: 'editor',
+                });
+                newInput.val(defaultText);
+            }else if (type === 'textarea') {
+                newInput = $('<textarea>').attr({
+                    name: 'data',
+                    placeholder: 'Textarea',
+                    class: 'form-control',
+                });
+                newInput.val(defaultText);
+            }
+
+            $('.inputContent').empty().append(newInput);
+            if (type === 'ckeditor') {
+                ckeditor();
+            }
+        }
+
+
     </script>
 
 @endsection

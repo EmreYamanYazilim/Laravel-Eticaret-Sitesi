@@ -42,7 +42,7 @@
                                         <td>{{ $setting->set_type }}</td>
                                         <td class="d-flex">
                                             <a href="{{ route('panel.setting.edit', $setting->id) }}" class="btn btn-primary mr-2">Düzenle</a>
-                                            <form action="{{ route('panel.setting.destory', $setting->id) }}" method="post">
+                                            <form action="{{ route('panel.setting.destroy', $setting->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Sil</button>

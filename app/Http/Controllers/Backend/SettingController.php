@@ -43,10 +43,27 @@ class SettingController extends Controller
         return view('backend.pages.setting.edit', compact('setting'));
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
         $setting = SiteSetting::where('id', $id)->first();
-        return view('backend.pages.setting.edit', compact('setting'));
+
+        if ($request->hasFile('data')) {
+            dosyasil($setting->data);
+
+            $image = $request->file('data');
+            $dosyaadi = $request->name;
+            $yukleklasor = 'image/setting/';
+            $resimurl = resimyukle($image, $dosyaadi, $yukleklasor);
+
+        }
+
+        $setting->update([
+            'name'      => $request->name,
+            'data'      => $resimurl ?? $request->data,
+            'set_type'  => $request->set_type,
+
+        ]);
+        return back()->withSuccess('Başarı ile Güncellendi');
     }
 
 
