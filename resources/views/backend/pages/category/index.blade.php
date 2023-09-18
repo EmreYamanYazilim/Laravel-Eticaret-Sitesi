@@ -21,7 +21,7 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Resim </th>
+                                <th>Resim</th>
                                 <th>Başlık</th>
                                 <th>Slogan</th>
                                 <th>Link</th>
@@ -92,7 +92,7 @@
                     statu:statu
                 },
                 success:function (response) {
-                    if (response.status == "true") {
+                    if (response.status === "true") {
                         alertify.success("Durum Aktif Edildi");
                     } else {
                         alertify.error("Durum Pasif Edildi");

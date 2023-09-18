@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\SliderController;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ Route::group(['middleware' => ['panelsetting','auth'], 'prefix' =>'panel' ,'as' 
     Route::post('/slider-durum/update', [SliderController::class, 'status'])->name('slider.status');
 
     //resourceli
-    Ro  ute::resource('/category',CategoryController::class)->except('destroy');
+    Route::resource('/category',CategoryController::class)->except('destroy');
     Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category-durum/update', [CategoryController::class, 'status'])->name('category.status');
 
@@ -46,6 +47,10 @@ Route::group(['middleware' => ['panelsetting','auth'], 'prefix' =>'panel' ,'as' 
     Route::put('/setting/{id}/update', [SettingController::class, 'update'])->name('setting.update');
     Route::delete('setting/{id}/destroy', [SettingController::class, 'destroy'])->name('setting.destroy');
 
+
+    Route::resource('/product', ProductController::class)->except('destroy');
+    Route::delete('/product/{id}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::post('/product-durum/update', [ProductController::class, 'status'])->name('product.status');
 
 
 

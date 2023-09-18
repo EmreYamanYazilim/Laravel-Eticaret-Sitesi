@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('category:id,category_up,name')->get();
+        $categories = Category::with('subcategory:id,category_up,name')->get();
         return view('backend.pages.category.index', compact('categories'));
     }
 
@@ -104,7 +104,7 @@ class CategoryController extends Controller
         $category = Category::where('id',$id)->firstorfail();
         dosyasil($category->image); // helper.php de dinamik hale getirerek  silme işlemini yaptırıcak komutlar orada
         $category->delete();
-        return back()->withSuccess('Slider Başarı İle Silindi');
+        return back()->withSuccess('Kategori Başarı İle Silindi');
 
     }
 
