@@ -17,13 +17,13 @@ class AboutController extends Controller
     }
     public function update(Request $request, $id = 1)
     {
-        $about =About::where('id',1)->first();
+        $abouts =About::where('id',1)->first();
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $dosyaadi = $request->name;
             $yukle = 'image/about/';
             $urlYukle = resimyukle($image,$dosyaadi,$yukle);
-            dosyasil($about->image);
+            dosyasil($abouts->image);
         }
 
 //        if (!empty($about->image == null)) {
@@ -42,11 +42,12 @@ class AboutController extends Controller
 //
 //        }
 
-        
+
+        $about = About::where('id', $id)->first();
         $about->updateOrCreate(
             ['id' => $id],  //  ilk array şart olarak gelecek istersek benzer işlemlerde e mailde tanıtabiliriz tek bölüm olucağı için idsi 1 olanı getiricek
             [
-                'image'             => $urlYukle ?? null,
+                'image'             => $urlYukle ?? $about->image,
                 'name'              => $request->name,
                 'content'           => $request->content1,
                 'text_1_icon'       => $request->text_1_icon,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('categoryHasOne:id,category_up,name')->get();
+        $products = Product::with('categoryHasOne:id,category_up,name')->orderBy('id','desc')->paginate(20);
         return view('backend.pages.product.index', compact('products'));
     }
 
@@ -49,7 +50,7 @@ class ProductController extends Controller
             'size'=>$request->size,
             'color'=>$request->color,
             'qty'=>$request->qty,
-            'image' => $resimurl ?? NULL,
+            'image' => $resimurl ?? null,
             'status'=>$request->status,
 
 
@@ -73,7 +74,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product   = Product::where('id',$id)->first();
-        $categories = Product::get();
+        $categories = Category::get();
         return view('backend.pages.product.edit', compact('product', 'categories'));
     }
 
@@ -100,7 +101,7 @@ class ProductController extends Controller
             'size'=>$request->size,
             'color'=>$request->color,
             'qty'=>$request->qty,
-            'image' => $resimurl ?? NULL,
+            'image' => $resimurl ?? $product->image,
             'status'=>$request->status,
 
 

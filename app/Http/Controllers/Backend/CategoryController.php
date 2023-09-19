@@ -89,7 +89,7 @@ class CategoryController extends Controller
                 'category_up'   => $request->category_up,
                 'status'        => $request->status,
                 'content'       => $request->content1,
-                'image'         => $resimurl ?? NULL,
+                'image'         => $resimurl ?? $category->image,
 
             ]);
             return back()->withSuccess('başarı ile değiştirildi');

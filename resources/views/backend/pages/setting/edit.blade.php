@@ -45,6 +45,13 @@
                         @if(!empty($setting->id))
                             @method('PUT')
                         @endif
+                        <div class="form-group">
+                            <div class="input-group col-xs-12">
+                                @if(isset($setting->set_type) && $setting->set_type == 'image')
+                                    <img width="150" height="155" src="{{ asset($setting->data ?? 'https://fakeimg.pl/250x190/') }}" alt="">
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label>Tip</label>
@@ -77,15 +84,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <div class="input-group col-xs-12">
 
-
-                                @if(isset($setting->set_type) && $setting->set_type == 'image')
-                                    <img width="150" height="155" src="{{ asset($setting->data ?? 'https://fakeimg.pl/250x190/') }}" alt="">
-                                @endif
-                            </div>
-                        </div>
 
                         {{--                    <div class="form-group">--}}
                         {{--                        <label>Resim</label>--}}

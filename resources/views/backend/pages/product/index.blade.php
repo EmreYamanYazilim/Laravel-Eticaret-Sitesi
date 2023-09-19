@@ -1,5 +1,7 @@
 @extends('backend.layout.app')
 
+
+
 @section('content')
 
     <div class="row">
@@ -68,6 +70,9 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{ $products->links('pagination::bootstrap-4') }}
+
 
                 </div>
             </div>

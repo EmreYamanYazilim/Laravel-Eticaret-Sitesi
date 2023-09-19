@@ -20,12 +20,12 @@ class SettingController extends Controller
     {
         SiteSetting::firstOrCreate(
             [
-                'name' => $request->name
+                'name'      => $request->name
             ],
             [
-                'name' => $request->name,
-                'data' => $request->data,
-                'set_type' => $request->set_type,
+                'name'      => $request->name,
+                'data'      => $request->data,
+                'set_type'  => $request->set_type,
             ]);
 
         return back()->withSuccess('Başarı ile Kaydedildi');
@@ -50,10 +50,10 @@ class SettingController extends Controller
         if ($request->hasFile('data')) {
             dosyasil($setting->data);
 
-            $image = $request->file('data');
-            $dosyaadi = $request->name;
-            $yukleklasor = 'image/setting/';
-            $resimurl = resimyukle($image, $dosyaadi, $yukleklasor);
+            $image          = $request->file('data');
+            $dosyaadi       = $request->name;
+            $yukleklasor    = 'image/setting/';
+            $resimurl       = resimyukle($image, $dosyaadi, $yukleklasor);
 
         }
 

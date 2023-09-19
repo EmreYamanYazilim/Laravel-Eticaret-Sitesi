@@ -1,5 +1,13 @@
 @extends('backend.layout.app')
 
+@section('customcss')
+    <style>
+        .ck-content{
+            height: 300px !important;
+        }
+    </style>
+
+@endsection
 @section('content')
     <div class="row">
     <div class="col-12 grid-margin stretch-card">
@@ -61,7 +69,7 @@
                             <option value="" >Kategori Seç</option>
                             @if($categories)
                                 @foreach($categories as $alt)
-                                    <option value="{{ $alt->id }}" {{ isset($product) && $product->category_up == $alt->id ? 'selected' : '' }} >{{ $alt->name }}</option>
+                                    <option value="{{ $alt->id }}" {{ isset($product) && $product->category_id == $alt->id ? 'selected' : '' }} >{{ $alt->name }}</option>
                                 @endforeach
                             @endif
 
