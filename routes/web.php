@@ -41,6 +41,9 @@ Route::group(['middleware' => 'sitesetting'], function () {
     Route::get('/alisverissepeti', [CartController::class, 'index'])->name('shopingbasket');//sepet
     Route::post('/alisverissepeti/ekle', [CartController::class, 'add'])->name('cart.add');
     Route::post('/alisverissepeti/silme', [CartController::class, 'remove'])->name('basket.remove');
+    Route::post('/alisverissepeti/newqty', [CartController::class, 'newqty'])->name('cart.newqty');
+
+
 
 
 
